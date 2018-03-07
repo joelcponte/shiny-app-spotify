@@ -1,7 +1,7 @@
 # shiny-app-spotify
 Shiny app that connects with spotify's API and provides personalized playlist recommendation through machine learning and data visualization.
 
-The app can be seen at joelcponte.shinyapps.io/spotifyapp.
+The app can be seen at http://joelcponte.shinyapps.io/spotifyapp.
 
 It is a bit messy now as I used it to learn some stuff, but it could be helpful. I will clean it up in the short future.
 
