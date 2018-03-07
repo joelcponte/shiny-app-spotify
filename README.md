@@ -15,4 +15,4 @@ Pick one artist to compare their songs and albums or pick multiple artists to co
 
 The app recommends two playlists using songs from the selected artists. The recomendation is very naive and it was developed using data from Spotify.
 
-First, I downloaded playlists with the keywords "running" and "relax" through Spotify's api and labelled the songs accordingly. Spotify provides a set of features for all of their songs, so we used these to create a training set where the Spotify features were the inputs and the labels "running" and "relax" as outputs. A logistic regression was trained to predict to which playlist new songs are most likely to belong.
+First, I downloaded playlists with the keywords "running" and "relax" through Spotify's api and labelled the songs accordingly. Spotify provides a set of features for all of their songs, so I used these to create a training set where the Spotify features were the inputs and the labels "running" and "relax" the outputs. A logistic regression was trained to predict to which playlist new songs are most likely to belong.
