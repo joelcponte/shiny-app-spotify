@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1520456391404.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1742479266",
+    "id" : "4E9573CA",
+    "lastKnownWriteTime" : 1505908286,
+    "last_content_update" : 1520456689730,
+    "path" : "C:/Users/joelcponte/Desktop/Projetos/Estudos/Shiny Apps/Spotify App/loading_button.R",
+    "project_path" : "loading_button.R",
+    "properties" : {
+        "cursorPosition" : "14,32",
+        "scrollLine" : "24"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,235 @@
+
+
+server <- function(input, output, session) {
+      
+
+#       output$test <- renderText({
+#             input$search_artist
+#             isolate(input$artist)
+#             })
+      
+      artist_list <- reactive({
+            input$search_artist
+            isolate({
+                  if (nchar(input$artist) > 1) {
+                        return(get_artists(input$artist, token))
+                  } else {
+                        return(NULL)
+                  }
+            })
+      })
+      
+      
+      selected_artist <- reactive({
+            input$search_albums2
+            isolate({
+                  return(artist_list() %>% filter(artist_name == input$chosen_artist))
+            })
+      })
+      
+      album_list <- reactive({
+            input$search_albums2
+            isolate(
+                  if(!is.null(artist_list())) {
+                        if (nchar(selected_artist()$artist_uri) > 1) {
+                              return(get_albums(selected_artist()$artist_uri, token))
+                        } else {
+                              return(NULL)
+                        }
+                  }
+            )
+      })
+      
+      
+      selected_albums <- reactive({
+            validate(need(input$select_albums, FALSE))
+            isolate({
+                  if(!is.null(album_list())) {
+                        return(filter(album_list(), album_name %in% input$chosen_albums))
+                  }
+            })
+      })
+      
+      spotify_df <- reactive({
+            input$select_albums
+            isolate({
+                  if(!is.null(artist_list())&!is.null(album_list()))
+                        return(get_tracks(selected_artist(), selected_albums(), token) %>% data.frame)
+            })
+      })
+      
+      observe({
+            print(spotify_df() %>% head(2))
+      })
+      
+      output$plottest <- renderHighchart({
+            validate(need(spotify_df(), FALSE))
+            isolate({
+                  if(!is.null(spotify_df())) {
+                        temp = data.frame(album_name = spotify_df()$album_name[order(spotify_df()$album_release_date)] %>% unique(), stringsAsFactors = F)
+                        levels = temp$album_name
+                        temp$color = rep(brewer.pal(8, name = "Set2"), length.out = nrow(temp))
+                        temp = merge(spotify_df(), temp, by = "album_name")
+                        temp$album_name = factor(temp$album_name, levels = levels)
+                        
+                        x <- c("Song", "Album", "Danceability", "Energy")
+                        y <-  c(sprintf("{point.%s}", c("track_name", "album_name")), sprintf("{point.%s:.2f}", c("danceability", "energy")))
+                        tltip <- tooltip_table(x, y)
+                        
+                        
+                        hchart(temp, "scatter", hcaes(album_name, danceability*energy, color = color, group = album_name)) %>%
+                              hc_title(text = "Best songs to listen while running") %>%
+                              hc_xAxis(title = list(text = "Album")) %>%
+                              hc_yAxis(max = 1, title = list(text = "Encourage Index")) %>% 
+                              hc_tooltip(useHTML = TRUE, headerFormat = "", pointFormat = tltip)
+                  }
+            })
+      })
+      
+      output$table <- renderDataTable({
+            validate(need(spotify_df(), FALSE))
+            isolate({
+                  features = c('danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness','instrumentalness', 'liveness', 'valence', 'tempo', 'time_signature')
+                  x = spotify_df()
+                  x = x[,features]
+                  x = predict(preProcess(x, method = c("center", "scale")), x)
+                  dd = dist(x)
+                  dd = as.matrix(dd)
+                  dd = melt(dd)
+                  dd = dd %>% filter(Var1>Var2)
+                  dd$track_1 = spotify_df()[dd$Var1,]$track_name
+                  dd$album_1 = spotify_df()[dd$Var1,]$album_name
+                  dd$track_2 = spotify_df()[dd$Var2,]$track_name
+                  dd$album_2 = spotify_df()[dd$Var2,]$album_name
+                  dd$Var1 = NULL
+                  dd$Var2 = NULL
+                  dd = dd %>% arrange(value)
+                  names(dd) = c("Indice de diferenca", "Track 1", "Album 1", "Track 2", "Album 2")
+                  data.table(dd)
+                  # formattable(dd, list(area(col = "Indice de diferenca") ~ normalize_bar("pink", 0.2)))
+            })
+            
+      })
+
+      
+      
+      output$pick_artist <- renderUI({
+            
+            if(!is.null(input$search_artist)) {
+                  if(input$search_artist>0) {
+                        if(!is.null(artist_list())) {
+                              artists = artist_list() %>% data.frame() %>% select(artist_name) %>% as_vector() %>% as.character()
+                              list(br(),
+                                          selectInput(inputId = "chosen_artist", 
+                                                      label = "Choose the variable:", 
+                                                      choices = artists),
+                                          actionButton("search_albums2", "Search")
+                                          
+                              )
+                              
+                        }
+                  }
+            }
+
+#             tags$img(src = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Joel_Silver_in_New_York_City_2008.jpg/220px-Joel_Silver_in_New_York_City_2008.jpg",
+#                      width = "50%",
+#                      align = "middle")
+      })
+      
+      output$print_artist_img <- renderUI({
+            if(!is.null(input$search_artist)) {
+                  if(input$search_artist>0) {
+                        if(!is.null(input$search_albums2)) {
+                              # artist_list() %>% print
+                              img_link = artist_list() %>% filter(artist_name == input$chosen_artist) %>% select(artist_img) %>% simplify()
+                              tags$img(src = img_link, width = "50%", align = "middle")
+                        }
+                  }
+            }
+      })
+      
+      
+      output$pick_album <- renderUI({
+            # album_list() %>% print
+
+            if(!is.null(input$search_albums2)) {
+                  if(input$search_albums2>0) {
+                        if(length(album_list())>0) {
+                              albums = album_list() %>% data.frame() %>% select(album_name) %>% as_vector() %>% as.character()
+                              list(
+                              selectizeInput(inputId = "chosen_albums", 
+                                    label = "Choose the variable:", 
+                                    choices = albums,
+                                    multiple = T,
+                                    selected = albums),
+                              actionButton("select_albums", "Select")
+                              )
+                        }
+                  }
+            }
+      })
+      
+      output$plot1 <- renderPlot({
+            datatest <- n()
+            # print(datatest)
+            # str(datatest)
+            if(length(datatest)>0) {
+                  if(length(input$variable1)>0) {
+                        if(input$variable1 %in% names(datatest)) {
+                              print(input$variable1)
+                              # cat(input$n())
+                              hist(datatest[,input$variable1])
+                        }
+                  }
+            }
+      })
+      
+      data("mtcars")
+      data("iris")
+      dataset_mtcars = mtcars
+      dataset_iris = iris
+      
+      n <- reactive({
+            if (is.null(input$dataset)) {
+                  df = data.frame("it_is_null" = c(0,0,0))
+            }
+            else if (input$dataset == "mtcars") {
+                  df = dataset_mtcars
+            } else if (input$dataset == "iris") {
+                  df = dataset_iris
+            } else {
+                  print(input$dataset)
+            }
+            return(df)
+      })
+            
+      
+      output$uitest <- renderUI({
+            
+            selectInput(inputId = "dataset", 
+                        label = "Choose the dataset:", 
+                        choices = list("mtcars" = "mtcars",
+                                       "iris" = "iris"))
+      })
+      
+      output$uitest2 <- renderUI({
+            
+           selectInput(inputId = "variable1", 
+                                    label = "Choose the variable:", 
+                                    choices = names(n()))
+      })
+            
+#                    box(selectInput(inputId = "variable1", 
+#                                     label = "Choose the variable:", 
+#                                     choices = ""),# names(n())), 
+#                        width = 4),
+#                   
+#                   box(            ,
+#                         plotOutput("plot1")
+# 
+# #                         plot()
+# #                         title = "Plottest",
+# #                         sliderInput("slider", "Number of observations:", 1, 100, 50)
+#                   )
+#\ print(n()),
+}

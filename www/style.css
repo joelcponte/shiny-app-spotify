@@ -1,0 +1,211 @@
+
+@font-face{
+  font-family: Fixedsys;
+  src:url(vcr.ttf);
+  /*font-weight:400;*/
+}
+
+@import url("https://fonts.googleapis.com/css?family=VT323");
+
+a.sidebar-toggle:hover {
+  background: #000000 !important;
+}
+.skin-blue .main-header .logo {
+  background-color: #000000 !important;
+}
+.highcharts-label.highcharts-data-label.highcharts-data-label .highcharts-text-outline {
+  stroke-width: "1px" !important;
+  stroke: 81b71a !important;
+}
+
+.highcharts-label.highcharts-data-label.highcharts-data-label>text {
+  fill: #FFFFFF !important;
+}
+text.highcharts-title {
+  font-family: "Courier" !important;
+  font-size: 13px !important;
+  fill: #FFFFFF !important;
+}
+rect.highcharts-point.highcharts-color-0 {
+  fill: #FFFFFF;
+}
+
+.highcharts-container > svg > rect.highcharts-background {
+  fill: #121212;
+}
+.nav-tabs-custom>.tab-content {
+  background: #121212;
+}
+.highcharts-label.highcharts-data-label>text{
+  font-size: 15px !important;
+}
+.table-striped .odd{
+  background-color: #000000 !important;
+}
+.table-striped .row >td{
+  border-top: 0px transparent;
+}
+.nav-tabs-custom {
+  background: #121212;
+  font-family: "Fixedsys";
+  color: #FFFFFF
+}
+.nav-tabs-custom>.nav-tabs>li.active>a {
+  background-color: #121212;
+  font-family: "Fixedsys";
+  color: #FFFFFF
+}
+
+.nav-tabs-custom>li>a:hover {
+  background-color: #FFFFFF;
+  color: #000000
+}
+.nav-tabs-custom>.nav-tabs>li.active>a:hover {
+  background-color: #FFFFFF;
+  color: #000000
+}
+.header.pull-right {
+  color: #FFFFFF !important;
+  font-family: "Fixedsys";
+  font-size: 24px !important;
+}
+
+.nav-tabs-custom>.nav-tabs>li.active {
+  border-top-color: #81b71a
+}
+.table-striped .even{
+  background-color: #282828 !important;
+  border-top: 1px solid rgba(4, 104, 0, 0)
+}
+.box {
+  border-top: 3px solid #81b71a;
+  background: #121212;
+  border-radius: 0px;
+}
+.box-body {
+  background-color: #121212;
+  background: #121212;
+  color: #FFFFFF;
+  font-family: "Fixedsys";
+}
+.btn {
+  border-radius: 0px;
+  margin: 0px !important;
+  display: inline-block !important;
+}
+.btn:hover{
+  background-color: #81b71a!important;
+}
+.form-control {
+  background-color: #FFFFFF
+}
+.content-wrapper {
+  background-color: #282828
+}
+.box-header {
+  background-color: #121212;
+  color: #FFFFFF;
+}
+.box-header .box-title {
+  font-family: "Fixedsys";
+  font-size: 20px;
+}
+.selectize-input {
+  background-color: #FFFFFF;
+  border-radius: 0px;
+}
+.skin-blue .main-header .logo {
+  background-color: #000000
+}
+.skin-blue .main-header .navbar {
+  background-color: #000000
+}
+.skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li:hover>a {
+  background: #282828;
+  border-left-color: #81b71a;
+  font-family: "Fixedsys";
+}
+.skin-blue .sidebar a {
+  font-family: "Fixedsys";
+}
+.skin-blue .left-side, .skin-blue .main-sidebar, .skin-blue .wrapper {
+}
+
+.footnote {
+  font-family: "Fixedsys";
+  font-size: 12px;
+  color: #282828;
+  bottom: 0;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  z-index: 998;
+}
+.footnote:hover {
+  color: #FFFFFF;
+}
+th.sorting {
+  color: #FFFFFF;
+}
+th {
+  color: #000000;
+}
+.shiny-output-error-validation, .no-artist-chosen {
+  font-family: "Fixedsys";
+  font-size: 40px;
+  margin-top: 20px;
+  color: #81b71a;
+}
+.main-sidebar .box-body {
+  padding: 0cm
+}
+.main-sidebar .box-body .form-group {
+  padding: 0cm;
+}
+.main-sidebar {
+  background-color: #121212!important;
+}
+
+.left-side, .main-sidebar {
+  width: 260px
+}
+.content-wrapper, .main-footer, .right-side {
+  margin-left: 260px;
+}
+#add-choo-search_albums2 {
+  white-space: normal!important;
+  width: 100px;
+}
+#add-choo-search_tracks_all_albums {
+  white-space: normal!important;
+  width: 105px;
+}
+#add-img-print_artist_img {
+
+}
+#add-img-print_artist_img>img {
+}
+[class*="col-"] {
+  padding-right:15px;
+}
+.wrapper {
+  /*overflow: auto!important;*/
+  background-color: #282828!important;
+}
+.sidebar-menu shiny-bound-input>div {
+      
+}
+.sidebar {
+  padding-bottom: 0px;
+}
+.sidebar-menu {
+  overflow: visible;
+}
+
+svg > g > g > g > g[class*="highcharts-legend-item-hidden"] > text {
+  fill: #cccccc !important;
+}
+g.highcharts-legend > g > g > g > text {
+  fill: #FFFFFF !important;
+}

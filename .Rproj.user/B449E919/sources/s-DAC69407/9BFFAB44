@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1520456383966.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "53167587",
+    "id" : "9BFFAB44",
+    "lastKnownWriteTime" : 1520455563,
+    "last_content_update" : 1520455563,
+    "path" : "C:/Users/joelcponte/Desktop/Projetos/Estudos/Shiny Apps/Spotify App/body.R",
+    "project_path" : "body.R",
+    "properties" : {
+        "cursorPosition" : "6,37",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
